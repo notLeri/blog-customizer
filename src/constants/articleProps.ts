@@ -177,3 +177,11 @@ export const defaultArticleState = {
 };
 
 export type ArticleStateType = typeof defaultArticleState;
+
+export interface customStyles {
+	fontFamilyOption: OptionType;
+	fontSizeOption: OptionType;
+	fontColor: OptionType;
+	contentWidth: OptionType;
+	backgroundColor: OptionType;
+}
