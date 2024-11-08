@@ -12,22 +12,33 @@ import {
 	customStyles,
 	ArticleStateType,
 	OptionType,
+	defaultArticleState,
 } from 'src/constants/articleProps';
 import { useState } from 'react';
 
 import styles from './ArticleParamsForm.module.scss';
 
 export const ArticleParamsForm = ({
-	styleParams,
-	setStyleParams,
+	setCurrentStyleParams,
 }: {
-	styleParams: customStyles;
-	setStyleParams: React.Dispatch<React.SetStateAction<ArticleStateType>>;
+	setCurrentStyleParams: React.Dispatch<React.SetStateAction<ArticleStateType>>;
 }) => {
-	const [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(false);
+	const [styleParams, setStyleParams] =
+		useState<customStyles>(defaultArticleState);
 
 	const handleChange = (field: keyof customStyles) => (option: OptionType) => {
 		setStyleParams({ ...styleParams, [field]: option });
+	};
+
+	const handleSubmit = (event?: React.FormEvent) => {
+		event?.preventDefault();
+		setCurrentStyleParams(styleParams);
+	};
+
+	const handleReset = () => {
+		setStyleParams(defaultArticleState);
+		setCurrentStyleParams(defaultArticleState);
 	};
 
 	return (
@@ -42,7 +53,10 @@ export const ArticleParamsForm = ({
 				className={`${styles.container} ${
 					isOpen ? styles.container_open : ''
 				}`}>
-				<form className={styles.form}>
+				<form
+					className={styles.form}
+					onSubmit={handleSubmit}
+					onReset={handleReset}>
 					<Text as='h2' size={31} weight={800} uppercase dynamicLite>
 						Задайте параметры
 					</Text>
@@ -78,8 +92,18 @@ export const ArticleParamsForm = ({
 						onChange={handleChange('contentWidth')}
 					/>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' htmlType='reset' type='clear' />
-						<Button title='Применить' htmlType='submit' type='apply' />
+						<Button
+							title='Сбросить'
+							htmlType='reset'
+							type='clear'
+							onClick={() => {}}
+						/>
+						<Button
+							title='Применить'
+							htmlType='submit'
+							type='apply'
+							onClick={() => {}}
+						/>
 					</div>
 				</form>
 			</aside>

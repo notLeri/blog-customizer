@@ -16,7 +16,7 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 const App = () => {
-	const [styleParams, setStyleParams] =
+	const [currentStyleParams, setCurrentStyleParams] =
 		useState<ArticleStateType>(defaultArticleState);
 
 	return (
@@ -24,17 +24,14 @@ const App = () => {
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': styleParams.fontFamilyOption.value,
-					'--font-size': styleParams.fontSizeOption.value,
-					'--font-color': styleParams.fontColor.value,
-					'--container-width': styleParams.contentWidth.value,
-					'--bg-color': styleParams.backgroundColor.value,
+					'--font-family': currentStyleParams.fontFamilyOption.value,
+					'--font-size': currentStyleParams.fontSizeOption.value,
+					'--font-color': currentStyleParams.fontColor.value,
+					'--container-width': currentStyleParams.contentWidth.value,
+					'--bg-color': currentStyleParams.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm
-				styleParams={styleParams}
-				setStyleParams={setStyleParams}
-			/>
+			<ArticleParamsForm setCurrentStyleParams={setCurrentStyleParams} />
 			<Article />
 		</main>
 	);
